@@ -112,7 +112,7 @@ def create_train_data():
         "underdog_score",
     )
 
-    train["fave_outcome"] = (3 - train["fave_score"] * 2).astype(int)
+    train["fave_outcome"] = (1 + train["fave_score"] * 2).astype(int)
 
     train["white_is_fave"] = (train["white_id"] == train["fave_id"]).astype(
         int
