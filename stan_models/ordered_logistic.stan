@@ -6,13 +6,14 @@ data {
   int fave_rank[num_games];
   int underdog_rank[num_games];
   int<lower=1, upper=K> y[num_games];
+  int<lower=0, upper=1> white_is_fave[num_games];
 }
 parameters {
   real b;
   real<lower=0> sigma_a;
-  //real<lower=0> sigma_y;
-  vector[num_players] raw_a;
   ordered[K-1] c;
+  real w;
+  vector[num_players] raw_a;
 }
 transformed parameters {
   vector[num_players] a;
@@ -23,14 +24,13 @@ model {
   raw_a ~ std_normal();
   
   for (i in 1:num_games)
-    //score_diff[i] ~ normal(a[fave_rank[i]] - a[underdog_rank[i]], sigma_y);
-    y[i] ~ ordered_logistic(a[fave_rank[i]] - a[underdog_rank[i]], c);
+    y[i] ~ ordered_logistic(a[fave_rank[i]] - a[underdog_rank[i]] + w * white_is_fave[i], c);
 }
 generated quantities {
   vector[num_games] ypred;
   
   // Compute predictive distribution for each game
   for (i in 1:num_games) {
-    ypred[i] = ordered_logistic_rng(a[fave_rank[i]] - a[underdog_rank[i]], c);
+    ypred[i] = ordered_logistic_rng(a[fave_rank[i]] - a[underdog_rank[i]] + w * white_is_fave[i], c);
   }
 }
