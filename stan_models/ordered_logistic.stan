@@ -6,13 +6,11 @@ data {
   int fave_rank[num_games];
   int underdog_rank[num_games];
   int<lower=1, upper=K> y[num_games];
-  //int<lower=0, upper=1> white_is_fave[num_games];
 }
 parameters {
   real b;
   real<lower=0> sigma_a;
   ordered[K-1] c;
-  //real w;
   vector[num_players] raw_a;
 }
 transformed parameters {
