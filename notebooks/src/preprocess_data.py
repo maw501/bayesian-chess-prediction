@@ -1,7 +1,7 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
 
-DP = "../data/games.csv"
+DP = "../../data/games.csv"
 
 pd.set_option("mode.chained_assignment", None)
 
