@@ -27,7 +27,7 @@ A repository using a Bayesian hierarchical model to try to predict the outcomes 
 
 There are example notebooks outlining the problem and parts of the Bayesian workflow. Notebooks marked [WIP] are a work in progress.
 
-* `0.overview_of_problem.ipynb` [WIP]: introduces the dataset and a simple GLM model.ipynb.
+* `0.overview_of_problem.ipynb` [WIP]: introduces the dataset and a simple GLM model.ipynb. [link](notebooks/0.overview_of_problem.ipynb)
 * `1.fake_data_and_prior_simulation.ipynb`: simulating fake data and fitting a model to it and prior-predictive simulation.
 * `2.fit_ordered_logistic_model.ipynb` [WIP]: fit a model to the dataset.
 * `3.machine_learning_baseline.ipynb` [WIP]: step back and fit another machine learning model to provide a benchmark for performance.
