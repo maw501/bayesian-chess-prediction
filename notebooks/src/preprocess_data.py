@@ -1,13 +1,11 @@
 import numpy as np
 import pandas as pd
 
-DP = "../../data/games.csv"
-
 pd.set_option("mode.chained_assignment", None)
 
 
-def load_data():
-    return pd.read_csv(DP, parse_dates=["date"])
+def load_data(file_path):
+    return pd.read_csv(file_path, parse_dates=["date"])
 
 
 def get_result_integer(string_result, position):
@@ -22,7 +20,7 @@ def get_result_non_integer(string_result, position):
     elif position == 1:
         return float(res[2]) / float(res[3])
     else:
-        raise Exception("Argh")
+        raise Exception("What the fluff.")
 
 
 def create_cols(df, mask, white_col, black_col, fave_name, underdog_name):
@@ -32,8 +30,8 @@ def create_cols(df, mask, white_col, black_col, fave_name, underdog_name):
     df.loc[mask, underdog_name] = df.loc[mask, black_col]
 
 
-def process_all_data():
-    df = load_data()
+def process_all_data(file_path):
+    df = load_data(file_path)
     df = df.dropna()
     df["year"] = df["date"].dt.year
 
@@ -58,8 +56,8 @@ def process_all_data():
     return df
 
 
-def create_train_data():
-    df = process_all_data()
+def create_train_data(file_path):
+    df = process_all_data(file_path)
     train = df.loc[df["date"] < "2019-01-01"]
 
     train_ids = list(

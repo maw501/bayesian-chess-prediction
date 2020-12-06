@@ -19,10 +19,10 @@ data {
 }
 parameters {
   real b;
-  real<lower=0> sigma_a;
-  ordered[K-1] c;
-  vector[num_players] raw_a;
   real w;
+  ordered[K-1] c;
+  real<lower=0> sigma_a;
+  vector[num_players] raw_a;
 }
 transformed parameters {
   vector[num_players] a;
@@ -34,8 +34,8 @@ model {
   raw_a ~ std_normal();
   b ~ normal(b_mu, b_scale);
   c ~ normal(c_mu, c_scale);
-  sigma_a ~ normal(sigma_a_mu, sigma_a_scale);
   w ~ normal(w_mu, w_scale);
+  sigma_a ~ normal(sigma_a_mu, sigma_a_scale);
   
   // model
   if (fit_model) {
