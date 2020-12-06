@@ -14,6 +14,8 @@ data {
   real<lower=0> c_scale;
   real w_mu;
   real<lower=0> w_scale;
+  int<lower=0, upper=1> fit_model;
+  int<lower=1, upper=K> y[num_games];
 }
 parameters {
   real b;
@@ -34,6 +36,12 @@ model {
   c ~ normal(c_mu, c_scale);
   sigma_a ~ normal(sigma_a_mu, sigma_a_scale);
   w ~ normal(w_mu, w_scale);
+  
+  // model
+  if (fit_model) {
+    for (i in 1:num_games)
+      y[i] ~ ordered_logistic(a[player_1_rank[i]] - a[player_2_rank[i]] + w*player_1_white[i], c);
+  }
 }
 generated quantities {
   vector[num_games] ypred;
