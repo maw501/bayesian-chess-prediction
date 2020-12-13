@@ -6,7 +6,7 @@ def plot_expected_outcomes(ypred, ranks, player_1_white):
     rank_diffs = ranks[:, 1] - ranks[:, 0]
     p1_mask = player_1_white == 1
 
-    out = np.array([np.sum(ypred == l, 0) for l in [1, 2, 3]]).T
+    out = np.array([np.sum(ypred == level, 0) for level in [1, 2, 3]]).T
     out_prob = out / np.mean(out.sum(1))
     expected_outcomes = [np.round(i, 2) for i in out_prob.mean(0)]
     expected_outcomes_white = [

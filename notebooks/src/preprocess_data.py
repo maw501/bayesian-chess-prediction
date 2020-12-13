@@ -68,7 +68,16 @@ def create_p1_p2_cols(df):
     return df
 
 
-def get_id_to_elo_rating_dict(df):
+def get_id_to_rank(df):
+    id_to_elo_rating_df = get_elo_df(df)
+    id_to_elo_rating_df["rank"] = range(1, len(id_to_elo_rating_df) + 1)
+
+    return (
+        id_to_elo_rating_df[["rank", "id"]].set_index("id").to_dict()["rank"]
+    )
+
+
+def get_elo_df(df):
     elo_df = pd.concat(
         [
             df[["p1_id", "p1_elo"]].rename(
@@ -84,11 +93,7 @@ def get_id_to_elo_rating_dict(df):
     id_to_elo_rating_df = id_to_elo_rating_df.sort_values(
         "elo", ascending=False
     )
-    id_to_elo_rating_df["rank"] = range(1, len(id_to_elo_rating_df) + 1)
-
-    return (
-        id_to_elo_rating_df[["rank", "id"]].set_index("id").to_dict()["rank"]
-    )
+    return id_to_elo_rating_df
 
 
 def add_rank_cols(df, id_to_elo_rating_dict):
@@ -114,13 +119,13 @@ def create_df(file_path):
         df.pipe(decide_when_p1_is_white)
         .pipe(get_scores_from_string)
         .pipe(create_p1_p2_cols)
+        .pipe(add_p1_outcome_col)
     )
     return df
 
 
 def process_train_df(train):
     train = train.copy()
-    id_to_elo_rating_dict = get_id_to_elo_rating_dict(train)
+    id_to_elo_rating_dict = get_id_to_rank(train)
     train = add_rank_cols(train, id_to_elo_rating_dict)
-    train = add_p1_outcome_col(train)
     return train
