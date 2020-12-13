@@ -13,7 +13,7 @@
   </a>
   <!--Commits  -->
   <a href="https://github.com/maw501/bayesian-chess-prediction/commits/main">
-    <img src="https://img.shields.io/github/last-commit/maw501/world_cup.svg"
+    <img src="https://img.shields.io/github/last-commit/maw501/bayesian-chess-prediction.svg"
       alt="Status version" />
   </a>
 </div>
