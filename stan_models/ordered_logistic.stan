@@ -17,19 +17,8 @@ data {
   int<lower=0, upper=1> fit_model;
   int<lower=1, upper=K> y[num_games];
   
-  // Both players in the test set:
- // int num_test_both_games;
- // int<lower=0> p1_test_both_rank[num_test_both_games];
- // int<lower=0> p2_test_both_rank[num_test_both_games];
- // int p1_test_both_white[num_test_both_games];
-  
-  // Neither players in the test set:
-//  int num_test_neither_games;
-//  vector[num_test_neither_games] p1_test_neither_prior_score;
- // vector[num_test_neither_games] p2_test_neither_prior_score;
-//  int p1_test_neither_white[num_test_neither_games];
-  
-  // Only one player in test set:
+  // Test set:
+  int<lower=0, upper=1> predict_on_test_set;
   int num_test_games;
   int<lower=0, upper=1> p1_in_train[num_test_games];
   int<lower=0, upper=1> p2_in_train[num_test_games];
@@ -76,31 +65,33 @@ generated quantities {
   }
   
   // Compute predictive distribution for test set:
-  for (i in 1:num_test_games) {
-    // Both players were in training data:
-    if ((p1_in_train[i] == 1) && (p2_in_train[i] == 1)) {
-      ypred_test[i] = ordered_logistic_rng(a[p1_test_rank[i]] - a[p2_test_rank[i]] + w*player_1_white[i], c);
-      
-    // Only player 1 was in training data:
-    } else if ((p1_in_train[i] == 1) && (p2_in_train[i] == 0)) {
-      ypred_test[i] = ordered_logistic_rng(a[p1_test_rank[i]] - b*p2_test_prior_score[i] + 
+  if (predict_on_test_set == 1) {
+    for (i in 1:num_test_games) {
+      // Both players were in training data:
+      if ((p1_in_train[i] == 1) && (p2_in_train[i] == 1)) {
+        ypred_test[i] = ordered_logistic_rng(a[p1_test_rank[i]] - a[p2_test_rank[i]] + w*player_1_white[i], c);
+
+      // Only player 1 was in training data:
+      } else if ((p1_in_train[i] == 1) && (p2_in_train[i] == 0)) {
+        ypred_test[i] = ordered_logistic_rng(a[p1_test_rank[i]] - b*p2_test_prior_score[i] + 
                                                  w*p1_test_white[i], 
                                                  c
                                                  );
-                                                 
-    // Only player 2 was in training data:
-    } else if ((p1_in_train[i] == 0) && (p2_in_train[i] == 1)) {
-      ypred_test[i] = ordered_logistic_rng(-a[p2_test_rank[i]] + b*p1_test_prior_score[i] + 
+
+      // Only player 2 was in training data:
+      } else if ((p1_in_train[i] == 0) && (p2_in_train[i] == 1)) {
+        ypred_test[i] = ordered_logistic_rng(-a[p2_test_rank[i]] + b*p1_test_prior_score[i] + 
                                                  w*p1_test_white[i], 
                                                  c
                                                  );
-                                                 
-    // Neither player was in training data:
-    } else if ((p1_in_train[i] == 0) && (p2_in_train[i] == 0)){
-      ypred_test[i] = ordered_logistic_rng(b * (p1_test_prior_score[i] - p2_test_prior_score[i]) + 
+
+      // Neither player was in training data:
+      } else if ((p1_in_train[i] == 0) && (p2_in_train[i] == 0)){
+        ypred_test[i] = ordered_logistic_rng(b * (p1_test_prior_score[i] - p2_test_prior_score[i]) + 
                                                  w*p1_test_white[i], 
                                                  c
                                                  );
     }
+  }
   }
 }
