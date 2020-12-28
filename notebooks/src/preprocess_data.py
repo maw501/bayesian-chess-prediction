@@ -113,6 +113,13 @@ def add_p1_outcome_col(df):
     return df
 
 
+def add_elo_diff_cols(df):
+    df = df.copy()
+    df["p1_elo_diff_p2"] = df["p1_elo"].values - df["p2_elo"].values
+    df["p1_elo_diff_p2_scaled"] = df["p1_elo_diff_p2"].values / 500
+    return df
+
+
 def create_df(file_path):
     df = load_df_drop_nas(file_path)
     df = (
@@ -120,6 +127,7 @@ def create_df(file_path):
         .pipe(get_scores_from_string)
         .pipe(create_p1_p2_cols)
         .pipe(add_p1_outcome_col)
+        .pipe(add_elo_diff_cols)
     )
     return df
 

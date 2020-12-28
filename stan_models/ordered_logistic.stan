@@ -69,12 +69,12 @@ generated quantities {
     for (i in 1:num_test_games) {
       // Both players were in training data:
       if ((p1_in_train[i] == 1) && (p2_in_train[i] == 1)) {
-        ypred_test[i] = ordered_logistic_rng(a[p1_test_rank[i]] - a[p2_test_rank[i]] + w*player_1_white[i], c);
+        ypred_test[i] = ordered_logistic_rng(a[p1_test_rank[i]] - a[p2_test_rank[i]] + w*p1_test_white[i], c);
 
       // Only player 1 was in training data:
       } else if ((p1_in_train[i] == 1) && (p2_in_train[i] == 0)) {
         ypred_test[i] = ordered_logistic_rng(a[p1_test_rank[i]] - b*p2_test_prior_score[i] + 
-                                                 w*p1_test_white[i], 
+                                                 w*p1_test_white[i],
                                                  c
                                                  );
 
