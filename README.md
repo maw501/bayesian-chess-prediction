@@ -21,19 +21,24 @@
 
 ## Overview
 
-A repository using a Bayesian hierarchical model to try to predict the outcomes of FIDE chess world cup games in 2019.
+A repository using a Bayesian hierarchical model to try to predict the outcomes of FIDE chess world cup games in 2019. The model fits an ordered logistic regression model and learns a per player ability rating.
+
+**Example of assessing impact of prior values on game outcomes:**
+
+![Image](resources/prior_sim.png)
+
+## Getting started
+
+Aside from standard data science packages the main dependencies are [PyStan](https://pystan.readthedocs.io/en/latest/) and [ArviZ](https://arviz-devs.github.io/arviz/).
 
 ## Notebooks
 
-There are example notebooks outlining the problem and parts of the Bayesian workflow. Notebooks marked [WIP] are a work in progress.
+There are example notebooks outlining the problem and parts of the Bayesian workflow. 
 
 * [`0.overview_of_problem.ipynb`](notebooks/0.overview_of_problem.ipynb) [TODO]: introduces the dataset and a simple GLM model.
 * [`1.fake_data_and_prior_simulation.ipynb`](notebooks/1.fake_data_and_prior_simulation.ipynb): simulating fake data and fitting a model to it and prior-predictive simulation.
-* [`2.fit_ordered_logistic_model.ipynb`](notebooks/2.fit_ordered_logistic_model.ipynb) [WIP]: fit a model to the dataset.
+* [`2.fit_ordered_logistic_model.ipynb`](notebooks/2.fit_ordered_logistic_model.ipynb) fit a model to the dataset.
 * [`3.machine_learning_baseline.ipynb`](notebooks/3.machine_learning_baseline.ipynb): step back and fit another machine learning model to provide a benchmark for performance.
 
-## TODO:
+Less finished notebooks are in the `notebooks/investigations` folder. These include fitting a simpler model that doesn't learn a per player ability rating.
 
-* Write overview
-* Model checking
-* Posterior predictive checks
