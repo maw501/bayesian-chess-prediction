@@ -1,6 +1,8 @@
 import pickle
+from pathlib import Path
 
 import numpy as np
+import pystan
 
 
 def get_class_probs(params, param_name, class_levels=[1, 2, 3]):
@@ -28,3 +30,20 @@ def save_model(file_name, model):
 
 def load_model(file_name):
     return pickle.load(open(str(file_name), "rb"))
+
+
+def get_stan_model(
+    model_dir: str,
+    model_name: str,
+    load_compiled_model: bool = False,
+    save_compiled_model: bool = True,
+):
+    if load_compiled_model:
+        try:
+            return load_model(Path(model_dir) / f"{model_name}.pkl")
+        except FileNotFoundError:
+            print("No compiled model, re-compiling")
+    model = pystan.StanModel(str(Path(model_dir) / f"{model_name}.stan"))
+    if save_compiled_model:
+        save_model(model_dir / f"{model_name}.pkl", model)
+    return model
