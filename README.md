@@ -35,7 +35,7 @@ Aside from standard data science packages the main dependencies are [PyStan](htt
 
 There are example notebooks outlining the problem and parts of the Bayesian workflow. 
 
-* [`0.overview_of_problem.ipynb`](notebooks/0.overview_of_problem.ipynb) [TODO]: introduces the dataset and a simple GLM model.
+* [`0.overview_of_problem.ipynb`](notebooks/0.overview_of_problem.ipynb): introduces the dataset and a simple GLM model.
 * [`1.fake_data_and_prior_simulation.ipynb`](notebooks/1.fake_data_and_prior_simulation.ipynb): simulating fake data and fitting a model to it and prior-predictive simulation.
 * [`2.fit_ordered_logistic_model.ipynb`](notebooks/2.fit_ordered_logistic_model.ipynb) fit a model to the dataset.
 * [`3.machine_learning_baseline.ipynb`](notebooks/3.machine_learning_baseline.ipynb): step back and fit another machine learning model to provide a benchmark for performance.
