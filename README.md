@@ -18,13 +18,7 @@
 
 A repository using a Bayesian hierarchical model to try to predict the outcomes of FIDE chess world cup games in 2019. The model fits an ordered logistic regression model and learns a per player ability rating.
 
-**Example of assessing impact of prior values on game outcomes:**
-
-![Image](resources/prior_sim.png)
-
 ## Getting started
-
-### Getting started
 
 Clone the repository then create the conda environment:
 
