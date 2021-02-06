@@ -45,5 +45,5 @@ def get_stan_model(
             print("No compiled model, re-compiling")
     model = pystan.StanModel(str(Path(model_dir) / f"{model_name}.stan"))
     if save_compiled_model:
-        save_model(model_dir / f"{model_name}.pkl", model)
+        save_model(Path(model_dir) / f"{model_name}.pkl", model)
     return model

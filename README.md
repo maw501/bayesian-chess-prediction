@@ -2,14 +2,9 @@
 
 <div align="center">
   <!--Python version -->
-  <a href="https://www.python.org/downloads/release/python-360/">
-    <img src="https://img.shields.io/pypi/pyversions/fastai.svg"
+  <a href="https://www.python.org/downloads/release/python-380/">
+    <img src="https://img.shields.io/badge/python-3.8-blue.svg"
       alt="Python version" />
-  </a>
-  <!--Project status -->
-  <a href="https://github.com/maw501/bayesian-chess-prediction">
-    <img src="https://img.shields.io/badge/Status-Under%20development-green.svg"
-      alt="Status version" />
   </a>
   <!--Commits  -->
   <a href="https://github.com/maw501/bayesian-chess-prediction/commits/main">
@@ -29,7 +24,21 @@ A repository using a Bayesian hierarchical model to try to predict the outcomes 
 
 ## Getting started
 
-Aside from standard data science packages the main dependencies are [PyStan](https://pystan.readthedocs.io/en/latest/) and [ArviZ](https://arviz-devs.github.io/arviz/).
+### Getting started
+
+Clone the repository then create the conda environment:
+
+```
+git clone git@github.com:maw501/bayesian-chess-prediction.git
+cd bayesian-chess-prediction
+conda env create -f environment.yml
+```
+
+In order to use the conda environment in a notebook run:
+
+```
+python -m ipykernel install --user --name=chess
+```
 
 ## Notebooks
 
@@ -42,3 +51,6 @@ There are example notebooks outlining the problem and parts of the Bayesian work
 
 Less finished notebooks are in the `notebooks/investigations` folder. These include fitting a simpler model that doesn't learn a per player ability rating.
 
+## Example of assessing impact of prior values on game outcomes
+
+![Image](resources/prior_sim.png)
